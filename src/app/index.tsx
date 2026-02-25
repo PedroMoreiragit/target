@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { HomeHeader } from "@/components/HomeHeader";
 import { Target } from "@/components/Target";
+import { List } from "@/components/List";
 
 
 const summary = {
@@ -11,10 +12,25 @@ const summary = {
 
 const targets = [
     {
+        id: "1",
         name: "Apple Watch",
         percentage: "50%",
         current: "R$ 580,00",
         target: "R$ 1.790,00",
+    },
+    {
+        id: "2",
+        name: "Comprar uma cadeira ergonômica",
+        percentage: "75%",
+        current: "R$ 900,00",
+        target: "R$ 1.200,00",
+    },
+    {
+        id: "3",
+        name: "Fazer uma viagem para o Rio de Janeiro",
+        percentage: "55%",
+        current: "R$ 1.200,00",
+        target: "R$ 3.200,00",
     },
 ]
 
@@ -24,7 +40,15 @@ export default function Index() {
         <View style={{ flex: 1 }}>
             <HomeHeader data={summary} />
 
-            <Target data={targets[0]} />
+
+            <List
+                title="Metas"
+                data={targets}
+                renderItem={({ item }) => <Target data={item} />}
+                keyExtractor={(item) => item.id}
+                emptyMessage="Nenhuma Meta. Toque em nova meta para criar!"
+                containerStyle={{paddingHorizontal: 24}}
+            />
         </View>
     )
 }
