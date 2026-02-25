@@ -1,4 +1,4 @@
-package com.target
+package com.pedro_dev_2.target
 
 import android.os.Build
 import android.os.Bundle

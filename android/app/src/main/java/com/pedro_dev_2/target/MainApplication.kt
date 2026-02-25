@@ -1,4 +1,4 @@
-package com.target
+package com.pedro_dev_2.target
 
 import android.app.Application
 import android.content.res.Configuration

@@ -2,6 +2,19 @@
   "expo": {
     "name": "target",
     "slug": "target",
-    "version": "1.0.0"
+    "scheme": "target",
+    "version": "1.0.0",
+    "android": {
+      "packge": "com.PedroBrizzi.target",
+      "edgeToEdgeEnabled": true,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptative-icon.png",
+        "backgroundColor": "#3D44CD"
+      },
+      "package": "com.pedro_dev_2.target"
+    },
+    "plugins": [
+      "expo-router"
+    ]
   }
 }
