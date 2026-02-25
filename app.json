@@ -14,7 +14,8 @@
       "package": "com.pedro_dev_2.target"
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      "expo-font"
     ]
   }
 }
