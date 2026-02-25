@@ -1,12 +1,12 @@
-import { HomeHeader } from "@/components/Home";
-import { Text, View, Button } from "react-native";
+import { View } from "react-native";
+import { HomeHeader } from "@/components/HomeHeader";
 
 
 export default function index() {
 
     return (
         <View style={{ flex: 1 }}>
-            <HomeHeader />
+            <HomeHeader data={{ total: "R$ 2.680,00"}}/>
         </View>
     )
 }
