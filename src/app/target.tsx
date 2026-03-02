@@ -14,7 +14,7 @@ export default function Target() {
 
                 <Input label="Nome da meta" placeholder="Ex: Viagem para praia, 5090" />
 
-                <CurrencyInput label="Valor alvo" value={0}/>
+                <CurrencyInput label="Valor alvo (R$)" value={0}/>
 
                 <Button title="Salvar" />
 
