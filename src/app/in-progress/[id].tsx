@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
-import { Alert, View } from "react-native";
+import { Alert, StatusBar, View } from "react-native";
+import dayjs from "dayjs";
 
 import { router, useFocusEffect, useLocalSearchParams } from "expo-router";
 import { PageHeader } from "@/components/PageHeader";
@@ -13,6 +14,7 @@ import { useTargetDatabase } from "@/database/useTargetDatabase";
 import { numberToCurrency } from "@/utils/numberToCurrency";
 import { Loading } from "@/components/Loading";
 import { useTransactionsDatabase } from "@/database/useTransactionsDatabase";
+
 
 
 
@@ -56,7 +58,7 @@ export default function InProgress() {
                 response.map((item) => ({
                     id: String(item.id),
                     value: numberToCurrency(item.amount),
-                    date: String(item.created_at),
+                    date: dayjs(item.created_at).format("DD/MM/YYYY [às] HH:mm"),
                     description: item.observation,
                     type: item.amount < 0 ? TransactionTypes.Output : TransactionTypes.Input
                 }))
@@ -80,6 +82,26 @@ export default function InProgress() {
         useCallback(() => { fetchData() }, [])
     )
 
+    function handleTransactionRemove(id: string) {
+
+        Alert.alert("Remover", "Deseja realmente remover?", [
+            { text: "Não", style: "cancel" },
+            { text: "Sim", onPress: () => transactionRemove(id) }
+        ])
+
+    }
+
+    async function transactionRemove(id: string) {
+        try {
+            await transactionsDatabase.remove(Number(id))
+            fetchData()
+            Alert.alert("Transação", "Transação removida com sucesso!")
+        } catch (error) {
+            Alert.alert("Erro", "Não foi possível remover a transação.")
+            console.log(error)
+        }
+    }
+
     if (isFetching) {
         return (
             <Loading />
@@ -88,6 +110,7 @@ export default function InProgress() {
 
     return (
         <View style={{ flex: 1, padding: 24, gap: 32 }}>
+            <StatusBar barStyle="dark-content"/>
             <PageHeader
                 title={details.name}
                 rightButton={{
@@ -101,7 +124,7 @@ export default function InProgress() {
             <List
                 title="Transações"
                 data={transactions}
-                renderItem={({ item }) => (<Transaction data={item} onRemove={() => { }} />)}
+                renderItem={({ item }) => (<Transaction data={item} onRemove={() => handleTransactionRemove(item.id)} />)}
                 emptyMessage="Nenhuma transação. Toque em nova transação para guardar seu primeiro dinheiro aqui."
             />
 
